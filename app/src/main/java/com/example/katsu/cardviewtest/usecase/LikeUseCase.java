@@ -2,6 +2,12 @@ package com.example.katsu.cardviewtest.usecase;
 
 import org.reactivestreams.Subscriber;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import io.reactivex.Completable;
+import io.reactivex.CompletableEmitter;
+import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 
@@ -12,12 +18,12 @@ import io.reactivex.Scheduler;
 public class LikeUseCase extends UseCase<Integer, Integer> {
 
 
-    protected LikeUseCase(Scheduler threadExecutor, Scheduler postExecutionThread) {
-        super(threadExecutor, postExecutionThread);
+    @Inject public LikeUseCase(@Named("executeScheduler") Scheduler threadExecutor, @Named("postScheduler") Scheduler postScheduler) {
+        super(threadExecutor, postScheduler);
     }
 
     @Override
     protected Observable buildUseCaseObservable(Integer requestValues) {
-        return null;
+        return Observable.fromArray(1,2);
     }
 }

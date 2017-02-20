@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.katsu.cardviewtest.databinding.TextLayoutBinding;
+import com.example.katsu.cardviewtest.di.DaggerPresentationComponent;
 
+import javax.inject.Inject;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     String[] datas = {
@@ -52,9 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder.getItemViewType() == 0) {
             WordOfMouthViewHolder wordOfMouthViewHolder = (WordOfMouthViewHolder) holder;
-            WordOfMouth wordOfMouth = new WordOfMouth();
-            wordOfMouth.title = "hieee" + position;
-            wordOfMouthViewHolder.setData(wordOfMouth);
+            wordOfMouthViewHolder.wordOfMouth.title = "hieee" + position;
         }
     }
 
@@ -64,15 +64,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             super(itemView);
         }
     }
-    class WordOfMouthViewHolder extends RecyclerAdapter.ViewHolder {
+    public class WordOfMouthViewHolder extends RecyclerAdapter.ViewHolder {
         TextLayoutBinding binding;
+        @Inject WordOfMouth wordOfMouth;
         // ヘッダのViewHolder
         public WordOfMouthViewHolder(View itemView) {
             super(itemView);
+            DaggerPresentationComponent.create().inject(this);
             binding = TextLayoutBinding.bind(itemView);
-        }
-
-        public void setData(WordOfMouth wordOfMouth) {
             binding.setWordOfMouth(wordOfMouth);
         }
     }

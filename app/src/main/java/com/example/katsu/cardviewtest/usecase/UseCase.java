@@ -24,10 +24,10 @@ public abstract class UseCase<T, K> {
     }
 
     protected abstract Observable buildUseCaseObservable(T requestValues);
-    void execute(T requestValue, Observer<K> observer) {
+    public void execute(T requestValue, Observer<K> observer) {
         this.buildUseCaseObservable(requestValue)
-                .observeOn(postExecutionThread)
                 .subscribeOn(threadExecutor)
+                .observeOn(postExecutionThread)
                 .subscribe(observer);
     }
 

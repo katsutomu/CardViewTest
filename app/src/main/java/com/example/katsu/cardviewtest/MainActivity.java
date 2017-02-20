@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.katsu.cardviewtest.di.DaggerPresentationComponent;
+import com.example.katsu.cardviewtest.di.PresentationComponent;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
