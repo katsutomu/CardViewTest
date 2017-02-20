@@ -24,8 +24,9 @@ public class UseCaseTest {
         TestObserver<Integer> observer = new TestObserver<>();
         TestUseCase useCase = new TestUseCase(Schedulers.io(),Schedulers.single());
         useCase.execute(Integer.valueOf(1), observer);
-        observer.assertSubscribed()
-                .assertResult(1,2);
+        observer.assertSubscribed();
+        observer.await();
+        observer.assertResult(1,2);
     }
 
     class TestUseCase extends UseCase<Integer, Integer> {
